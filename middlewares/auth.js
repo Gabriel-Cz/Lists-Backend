@@ -19,6 +19,15 @@ const verificateAuth = (req, res, next) => {
 
 }
 
+const verificateShare = (res, next) => {
+    if(userId !== userSharedId) {
+        return res.status(401).json({
+            message: 'Necesitas el permiso para la edicion de esta lista.'
+        })
+    }
+    next();
+}
+
 /* const verificateRol = (req, res, next) => {
     let rol = req.user.role;
     if(rol !== 'ADMIN'){
@@ -31,4 +40,4 @@ const verificateAuth = (req, res, next) => {
 
 */
 
-module.exports = {verificateAuth};
+module.exports = {verificateAuth, verificateShare};

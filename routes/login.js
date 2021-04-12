@@ -14,14 +14,14 @@ router.post('/', async(req, res) => {
         const userDB = await User.findOne({email: body.email});
 
         if(!userDB){
-            return res.status(400).json({
-                message: "El Correo Electronico es invalido, intenta nuevamente"
+            return res.status(401).json({
+                message: "El Correo Electronico es invalido, intenta nuevamente."
             });
         }
 
         if(!bcrypt.compareSync(body.password, userDB.password)){
             return res.status(400).json({
-                message: "La Contraseña es invalida, intenta nuevamente"
+                message: "La Contraseña es invalida, intenta nuevamente."
             });
         }
 
@@ -36,7 +36,7 @@ router.post('/', async(req, res) => {
     }
     catch (error) {
         return res.status(500).json({
-            message: "Error desconocido",
+            message: "Error desconocido, intenta nuevamente.",
         });
     }
 })

@@ -28,6 +28,7 @@ app.use('/api', require('./routes/lists'));
 app.use('/login', require('./routes/login'));
 app.use('/users', require('./routes/users'));
 app.use('/list', require('./routes/list'));
+app.use('/shareList', require('./routes/shareList'));
 
 //Routes
 app.get('/', (req, res) => {
