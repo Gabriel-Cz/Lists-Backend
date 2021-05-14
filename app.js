@@ -19,7 +19,7 @@ mongoose.connect(uri, options).then(
 );
 
 const corsOptions = {
-    origin: '*'
+    origin: 'http://localhost:8080'
 }
 
 app.use(cors(corsOptions));
