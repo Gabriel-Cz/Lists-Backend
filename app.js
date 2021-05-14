@@ -19,9 +19,6 @@ mongoose.connect(uri, options).then(
 );
 
 app.use(cors());
-app.use(() => {
-    res.header("Access-Control-Allow-Origin", "true");
-})
 app.use(morgan('tiny'));
 app.use(express.json());
 app.use(express.urlencoded( { extended: true, } ));
