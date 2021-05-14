@@ -18,13 +18,9 @@ mongoose.connect(uri, options).then(
     }
 );
 
-const corsOptions = {
-    origin: 'http://192.168.1.70:8080'
-}
-
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(() => {
-    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Origin", "true");
 })
 app.use(morgan('tiny'));
 app.use(express.json());
@@ -39,10 +35,6 @@ app.use('/list', require('./routes/list'));
 const history = require('connect-history-api-fallback');
 app.use(history());
 app.use(express.static(path.join(__dirname, 'public')));
-
-app.get('/', (req, res) => {
-    res.send('Shared Lists API');
-})
 
 //Auto Port
 app.set('puerto', process.env.PORT || 3000 );
