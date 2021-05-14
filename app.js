@@ -6,10 +6,10 @@ import mongoose from 'mongoose';
 
 const app = express();
 
-const url = 'mongodb://localhost:27017/my-lists-app-db';
+const uri = "mongodb+srv://GabrielAdmin:Gabrieladmin123@cluster0.mzwcn.mongodb.net/SharedListsDB?retryWrites=true&w=majority";
 const options = { useCreateIndex: true, useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false };
 
-mongoose.connect(url, options).then(
+mongoose.connect(uri, options).then(
     () => {
         console.log('DB connected');
     },
@@ -18,7 +18,6 @@ mongoose.connect(url, options).then(
     }
 );
 
-//Middlewares
 app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());
@@ -28,14 +27,8 @@ app.use('/api', require('./routes/lists'));
 app.use('/login', require('./routes/login'));
 app.use('/users', require('./routes/users'));
 app.use('/list', require('./routes/list'));
-app.use('/shareList', require('./routes/shareList'));
 
-//Routes
-app.get('/', (req, res) => {
-    res.send('Hello World');
-});
-
-//middleware for Vue Router history mode
+//Middleware for Vue Router history mode
 const history = require('connect-history-api-fallback');
 app.use(history());
 app.use(express.static(path.join(__dirname, 'public')));

@@ -20,14 +20,20 @@ router.post('/new-user', async(req, res) => {
     body.password = bcrypt.hashSync(req.body.password, saltRound);
     
     try {
-        const userDB = await User.create(body);
-        res.status(200).json(userDB);
+        const userDB = await User.findOne({email: body.email});
+        if(userDB) {
+            return res.status(401).json({
+                message: "El email ya se encuentra registrado, Inicia Sesion."
+            });
+        } else {
+            const userDB = await User.create(body);
+            res.status(200).json(userDB);
+        }
     }
 
-    catch (error) {
+    catch (err) {
         return res.status(500).json({
             message: "No se pudo registrar el usuario, intenta de nuevo",
-            error,
         })
     }
 });

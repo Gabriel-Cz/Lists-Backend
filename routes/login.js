@@ -34,7 +34,7 @@ router.post('/', async(req, res) => {
             token: token
         });
     }
-    catch (error) {
+    catch (err) {
         return res.status(500).json({
             message: "Error desconocido, intenta nuevamente.",
         });
