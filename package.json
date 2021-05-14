@@ -16,13 +16,13 @@
     "mongoose": "^5.11.10",
     "mongoose-unique-validator": "^2.0.3",
     "morgan": "^1.10.0",
-    "underscore": "^1.13.1"
-  },
-  "devDependencies": {
+    "underscore": "^1.13.1",
     "@babel/cli": "^7.12.10",
     "@babel/core": "^7.12.10",
     "@babel/node": "^7.12.10",
-    "@babel/preset-env": "^7.12.11",
+    "@babel/preset-env": "^7.12.11"
+  },
+  "devDependencies": {
     "nodemon": "^2.0.7"
   },
   "scripts": {
