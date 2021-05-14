@@ -22,8 +22,10 @@ const corsOptions = {
     origin: 'http://localhost:8080'
 }
 
+app.use(() => {
+    res.header("Access-Control-Allow-Origin", "*");
+})
 app.use(cors(corsOptions));
-app.options('*', cors(corsOptions));
 app.use(morgan('tiny'));
 app.use(express.json());
 app.use(express.urlencoded( { extended: true, } ));
@@ -37,6 +39,13 @@ app.use('/list', require('./routes/list'));
 const history = require('connect-history-api-fallback');
 app.use(history());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.get('/', (req, res) => {
+    return res.json({
+        message: "SharedLists API",
+        message
+    })
+})
 
 //Auto Port
 app.set('puerto', process.env.PORT || 3000 );
