@@ -31,7 +31,7 @@
     "start": "npm run build && node ./build/app.js",
     "build": "npm run clean && npm run build-babel",
     "clean": "rm -rf build && mkdir build",
-    "babel-build": "babel -d ./build ./app.js -s",
+    "build-babel": "babel -d ./build ./app.js -s",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
