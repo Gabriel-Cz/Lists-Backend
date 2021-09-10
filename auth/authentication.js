@@ -7,7 +7,7 @@ const verificateAuth = (req, res, next) => {
 
         if(err) {
             return res.status(401).json({
-                message: "error al leer el token",
+                message: "Error al leer el token",
                 err
             });
         }

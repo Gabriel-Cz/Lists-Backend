@@ -2,10 +2,10 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const listSchema = new Schema({
-    list_title: {
+    name: {
         type: String,
     },
-    list_items: {
+    items: {
         type: Array,
         listItem: {
             type: String,

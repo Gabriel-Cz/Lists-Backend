@@ -1,11 +1,12 @@
 import mongoose from 'mongoose';
+import uniqueValidator from 'mongoose-unique-validator';
 
 const Schema = mongoose.Schema;
-const uniqueValidator = require('mongoose-unique-validator');
 
 const userSchema = new Schema({
-    name: {
+    username: {
         type: String, 
+        unique: true,
         required: [true, 'El nombre es necesario']
     },
     email: {
@@ -26,8 +27,6 @@ const userSchema = new Schema({
         default: true,
     }
 });
-
-userSchema.plugin(uniqueValidator, { message: "Error, esperaba {PATH} unico."});
 
 /* Won't save the password in JSON */
 userSchema.methods.toJSON = function() {

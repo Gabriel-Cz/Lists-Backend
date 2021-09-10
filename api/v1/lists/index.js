@@ -1,24 +1,25 @@
 import express from 'express';
-import List from '../models/list';
-import User from '../models/user';
+import List from '../lists/lists.schema';
+import User from '../user/user.schema';
+
+import { verificateAuth } from '../../../auth/authentication';
 
 const router = express.Router();
-const { verificateAuth } = require('../middlewares/auth');
 
-router.get('/lists', verificateAuth, async(req, res) => {
+router.get('/', verificateAuth, async(req, res) => {
     const userId = req.user._id;
     try {
         const listsDB = await List.find({userId: userId});
         res.status(200).json(listsDB);
-    } catch (e) {
+    } catch (error) {
         return res.status(400).json({
-            message: "error",
-            e,
+            message: "Error al buscar listas, intenta de nuevo mas tarde.",
+            error
         });
     }
 })
 
-router.get('/list/:_id', verificateAuth, async(req, res) => {
+router.get('list/:_id', verificateAuth, async(req, res) => {
     const listId = req.params._id;
     const userId = req.user._id;
     try {
@@ -26,7 +27,8 @@ router.get('/list/:_id', verificateAuth, async(req, res) => {
         res.status(200).json(listsDB);
     } catch (error) {
         return res.status(400).json({
-            message: "An error ocurred"
+            message: "Error al buscar la lista, intenta de nuevo mas tarde.",
+            error
         });
     }
 });
@@ -40,13 +42,13 @@ router.post('/new-list', verificateAuth, async(req, res) => {
         res.status(200).json(listDB);
     } catch (error) {
         return res.status.json({
-            message: error,
+            message: "Error al crear la lista, intenta de nuevo mas tarde.",
             error,
         });
     }
 })
 
-router.delete('/list/:_id', verificateAuth, async(req, res) => {
+router.delete('list/:_id', verificateAuth, async(req, res) => {
     const listId = req.params._id
     const userId = req.user._id
     try {
@@ -54,13 +56,13 @@ router.delete('/list/:_id', verificateAuth, async(req, res) => {
         res.status(200).json(listDB)
     } catch (error) {
         return res.status(500).json({
-            message: "error",
+            message: "Error al eliminar la lista, intenta de nuevo mas tarde.",
             error
         });
     }
 })
 
-router.put('/list/updateTitle/:_id', verificateAuth, async(req, res) => {
+router.put('list/:_id/updateTitle', verificateAuth, async(req, res) => {
     const id = req.params._id;
     const userId = req.user._id;
     const newTitle = req.body.newTitle;
@@ -72,13 +74,13 @@ router.put('/list/updateTitle/:_id', verificateAuth, async(req, res) => {
         res.status(200).json(listDB)
     } catch (error) {
         return res.status(500).json({
-            message: "error",
+            message: "Error al actualizar la lista, intenta de nuevo mas tarde.",
             error
         })
     }
 })
 
-router.put('/list/addNewItems/:_id', verificateAuth, async(req, res) => {
+router.put('list/:_id/addNewItems', verificateAuth, async(req, res) => {
     const id = req.params._id;
     const userId = req.user._id;
     const newItems = req.body.newItems;
